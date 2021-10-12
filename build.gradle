@@ -1,0 +1,28 @@
+plugins {
+    id 'maven-publish'
+    id "com.palantir.git-version" version "0.12.3"
+
+}
+
+group = "com.github.unidev-platform"
+
+subprojects {
+    version = gitVersion()
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven-publish'
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+}

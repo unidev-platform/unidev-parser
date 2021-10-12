@@ -1,0 +1,4 @@
+
+rootProject.name = 'unidev-parser'
+
+include('unidev-parser')
