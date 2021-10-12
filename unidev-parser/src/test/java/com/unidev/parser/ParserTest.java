@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class ParserTest {
 
   @Test
-  public void collectionValuesBetween() {
+  void collectionValuesBetween() {
     Collection<String> strings = new Parser().collectValuesBetween(
         "qwe <u>a</u> 123231  <u>xxx</u> 1 <u>a</u> <u>x</u>yyy", "<u>", "</u>");
 
@@ -19,7 +19,7 @@ public class ParserTest {
   }
 
   @Test
-  public void noMatchForCollection() {
+  void noMatchForCollection() {
     Collection<String> strings = new Parser().collectValuesBetween(
         "qwe <u>a</u> 123231  <u>xxx</u> 1 <u>a</u> <u>x</u>yyy", "<x>", "</x>");
     assertThat(strings).isNotNull();
@@ -27,7 +27,7 @@ public class ParserTest {
   }
 
   @Test
-  public void emptyArg() {
+  void emptyArg() {
     Collection<String> strings = new Parser().collectValuesBetween(
         "", "<x>", "</x>");
 
@@ -36,7 +36,7 @@ public class ParserTest {
   }
 
   @Test
-  public void removeValueBetween() {
+  void removeValueBetween() {
     String text = "ABC-1234-XYZ";
     String updatedText = new Parser().removeValueBetween(text, "ABC", "XYZ", false);
     assertThat(updatedText).isEqualTo("ABCXYZ");
@@ -48,6 +48,12 @@ public class ParserTest {
     String notFoundMessage = new Parser().removeValueBetween(message, "<p>", "</p>", true);
     assertThat(notFoundMessage).isNull();
 
+  }
+
+  @Test
+  void cleanContent() {
+    String cleanedContent = new Parser().clean("  ABC  123    ");
+    assertThat(cleanedContent).isEqualTo("ABC 123");
   }
 
 
