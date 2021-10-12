@@ -35,5 +35,21 @@ public class ParserTest {
     assertThat(strings).isEmpty();
   }
 
+  @Test
+  public void removeValueBetween() {
+    String text = "ABC-1234-XYZ";
+    String updatedText = new Parser().removeValueBetween(text, "ABC", "XYZ", false);
+    assertThat(updatedText).isEqualTo("ABCXYZ");
+
+    String message = "Message1<b>remove me</b>.Message2<b>remove me</b>.";
+    String updatedMessage = new Parser().removeValueBetween(message, "<b>", "</b>", true);
+    assertThat(updatedMessage).isEqualTo("Message1.Message2<b>remove me</b>.");
+
+    String notFoundMessage = new Parser().removeValueBetween(message, "<p>", "</p>", true);
+    assertThat(notFoundMessage).isNull();
+
+  }
+
+
 
 }
